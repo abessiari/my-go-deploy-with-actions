@@ -9,6 +9,9 @@ on:
       - main 
   workflow_dispatch:
 
+env:
+  tagged_image: geneontology/go-devops-base:cicd
+
 jobs:
   DockerBuild:
     runs-on: ubuntu-22.04
@@ -22,10 +25,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Set the value
-        run: |
-          echo "tagged_image=geneontology/go-devops-base:cicd" >> "$GITHUB_ENV"
-
       - name: Build Image
         uses: docker/build-push-action@v2
         with:
@@ -34,10 +33,6 @@ jobs:
           push: false
           load: true
           tags: ${{ env.tagged_image }}
-
-      - name: List Images
-        run: |
-          docker image list | grep geneontology
 
   DockertTest:
     runs-on: ubuntu-22.04
@@ -49,6 +44,10 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+
+      - name: List Images
+        run: |
+          docker image list | grep geneontology
 
       - name: Provision and Test
         run: |
