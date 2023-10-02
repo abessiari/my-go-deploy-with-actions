@@ -43,7 +43,7 @@ jobs:
 
       - name: Create Bash Script
         run: |
-           cat <<EOF > run.sh |
+           cat <<EOF > arun.sh |
            #!/bin/bash
            go-deploy -init --working-directory aws
            go-deploy --working-directory aws -w test-go-deploy -c config.yml.sample
@@ -56,7 +56,7 @@ jobs:
            EOF
            sleep 1
            ls -l
-           chmod +x run.sh
+           chmod +x arun.sh
 
       - name: Provision and Test
         run: |
