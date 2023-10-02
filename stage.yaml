@@ -1,0 +1,13 @@
+- hosts: all
+
+  tasks:
+  - name: create stage directory
+    file:
+      path: '{{ stage_dir }}'
+      state: directory
+
+  - name: touch file 
+    file: 
+      path: '{{ stage_dir }}/{{ TEST_FILE }}'
+      state: touch
+
