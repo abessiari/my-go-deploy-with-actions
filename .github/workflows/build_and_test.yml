@@ -33,7 +33,7 @@ jobs:
           file: docker/Dockerfile.dev.simple
           push: false
           load: true
-          tags: $tagged_image
+          tags: ${{ env.tagged_image }}
 
       - name: List Images
         run: |
