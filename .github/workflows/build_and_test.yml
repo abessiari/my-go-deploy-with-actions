@@ -13,7 +13,7 @@ env:
   tagged_image: geneontology/go-devops-base:cicd
 
 jobs:
-  DockerBuild:
+  DockerBuildAndTest:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -34,17 +34,6 @@ jobs:
           load: true
           tags: ${{ env.tagged_image }}
 
-  DockertTest:
-    runs-on: ubuntu-22.04
-    needs: DockerBuild
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-
       - name: List Images
         run: |
           docker image list | grep geneontology
@@ -54,4 +43,3 @@ jobs:
           docker run --rm \
               -e GEN_SSH_KEYS=${{ vars.GEN_SSH_KEYS }}  -e AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} -e AWS_ACCESS_SECRET=${{ secrets.AWS_ACCESS_SECRET }} \
               -v ${{ github.workspace }}:/go-deploytesting -w /go-deploytesting -t ${{ env.tagged_image }} ./run.sh
-
