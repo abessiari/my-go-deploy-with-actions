@@ -10,3 +10,8 @@ instance:
     dns_zone_id: ""
     dns_record_name: ""
     disk_size: 10 
+stack:
+   vars:
+      stage_dir: /home/ubuntu/stage_dir
+      TEST_FILE: test_file 
+   scripts: [ "stage.yaml" ]
