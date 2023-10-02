@@ -33,9 +33,10 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: docker/Dockerfile.dev
+          file: docker/Dockerfile.dev.simple
           platforms: linux/amd64,linux/arm64/v8
           push: false
+          load: true
           tags: ${{ steps.prep.outputs.tagged_image }}
 
   DockertTest:
