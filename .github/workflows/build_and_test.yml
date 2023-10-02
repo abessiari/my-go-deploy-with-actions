@@ -29,9 +29,12 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: docker/Dockerfile.dev.simple
+          file: docker/Dockerfile.dev
           push: false
           load: true
+          build-args: |
+             base_image=ubuntu:22.04
+
           tags: ${{ env.tagged_image }}
 
       - name: List Images
@@ -51,6 +54,8 @@ jobs:
            go-deploy --working-directory aws -w test-go-deploy -destroy
            exit $ret
            EOF
+           sleep 1
+           ls -l
            chmod +x run.sh
 
       - name: Provision and Test
